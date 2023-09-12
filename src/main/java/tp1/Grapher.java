@@ -1,4 +1,4 @@
-package tp1;
+package main.java.tp1;
 
 import javafx.scene.chart.XYChart;
 import org.mariuszgromada.math.mxparser.Function;
