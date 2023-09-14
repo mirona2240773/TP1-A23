@@ -3,6 +3,9 @@ package main.java.tp1;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -39,29 +42,44 @@ public class VuePrincipale extends Application {
     private Button button1 = new Button("Boutton 1");
     private Button button2 = new Button("Boutton 2");
     private Button button3 = new Button("Boutton 3");
+
+    private Label label = new Label("Nombre de données");
+
+    private TextField textField = new TextField();
+
+    private ChoiceBox choiceBox = new ChoiceBox();
+
+    private Button bouttonAjouterGraphique = new Button("Ajouter un graphique");
+
+    private Button bouttonEffacerlesGraphiques = new Button("Effacer les graphiques");
+
+    private TilePane tilePane = new TilePane();
+
+
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-//        HBox hBox = new HBox(text,label,choix);
-//        HBox hBox1 = new HBox(bouttonAjouterGraphique,bouttonEffacerlesGraphiques);
-//        VBox vBox = new VBox(hBox,hBox1);
-//        VBox vBox1 = new VBox(tilePane,stackPane,vBox);
-//        VBox vBox2 = new VBox(gridPane);
-//        HBox hBox2 = new HBox(vBox2,vBox1);
-//        HBox hBox3 = new HBox(img...x10)
-//        HBox hBox4 = new HBox(button1,button2,button3);
-//        VBox vBox3 = new VBox(hBox3,hBox2,hBox4);
-//
-//
-//
-//        afficherImage("science.png");
-//
-//        Scene scene = new Scene();
-//        primaryStage.setScene(scene);
-//
-//
-//        primaryStage.show();
-//
+        HBox hBox = new HBox(label, textField, choiceBox);
+        HBox hBox1 = new HBox(bouttonAjouterGraphique, bouttonEffacerlesGraphiques);
+        VBox vBox = new VBox(hBox, hBox1);
+        VBox vBox1 = new VBox(tilePane, stackPane, vBox);
+        VBox vBox2 = new VBox(gridPane);
+        HBox hBox2 = new HBox(vBox2, vBox1);
+        HBox hBox3 = new HBox(img...x10)
+        HBox hBox4 = new HBox(button1, button2, button3);
+        VBox vBox3 = new VBox(hBox3, hBox2, hBox4); // borderPane ici
+
+
+        afficherImage("science.png");
+
+        Scene scene = new Scene();
+        primaryStage.setScene(scene);
+
+
+        primaryStage.show();
+
     }
 
     public ImageView afficherImage(String nomImage) {
