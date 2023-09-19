@@ -12,6 +12,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 /**
  * Vue pour le Tp1 sur les équations
  *
@@ -53,28 +57,50 @@ public class VuePrincipale extends Application {
 
     private Button bouttonEffacerlesGraphiques = new Button("Effacer les graphiques");
 
-    private TilePane tilePane = new TilePane();
+
 
 
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        TilePane tilePane = new TilePane(afficherImage("science1.png"));
 
-        HBox hBox = new HBox(label, textField, choiceBox);
-        HBox hBox1 = new HBox(bouttonAjouterGraphique, bouttonEffacerlesGraphiques);
-        VBox vBox = new VBox(hBox, hBox1);
-        VBox vBox1 = new VBox(tilePane, stackPane, vBox);
-        VBox vBox2 = new VBox(gridPane);
-        HBox hBox2 = new HBox(vBox2, vBox1);
-        HBox hBox3 = new HBox(img...x10)
-        HBox hBox4 = new HBox(button1, button2, button3);
-        VBox vBox3 = new VBox(hBox3, hBox2, hBox4); // borderPane ici
+        GridPane gridPane = new GridPane();
+        gridPane.add(afficherImage("science1.png"),0,0);
+        gridPane.add(afficherImage("science2.png"),1,0,1,2);
+        gridPane.add(afficherImage("science3.png"),0,1);
+        gridPane.add(afficherImage("science4.png"),0,2,1,2);
+        gridPane.add(afficherImage("science5.png"),1,2);
+        gridPane.add(afficherImage("science5.png"),1,3);
 
 
-        afficherImage("science.png");
 
-        Scene scene = new Scene();
+//        StackPane stackPane = new StackPane();
+//
+//        HBox hBox = new HBox(label, textField, choiceBox);
+//        HBox hBox1 = new HBox(bouttonAjouterGraphique, bouttonEffacerlesGraphiques);
+//        VBox vBox = new VBox(hBox, hBox1);
+//
+//
+//
+//        VBox vBox1 = new VBox(tilePane, vBox);
+//        AnchorPane anchorPane = new AnchorPane(vBox1);
+//        AnchorPane.setTopAnchor(anchorPane,200.0);
+//
+//        HBox hBox3 = new HBox(afficherImageTravail("eq1.png"));
+//        HBox hBox4 = new HBox(button1, button2, button3);
+//
+//
+//        BorderPane borderPane = new BorderPane();;
+//        borderPane.setTop(hBox3);
+//        borderPane.setLeft(gridPane);
+//        borderPane.setRight(anchorPane);
+//        borderPane.setBottom(hBox4);
+
+
+//        afficherImage("science.png");
+        Scene scene = new Scene(tilePane,500,400);
         primaryStage.setScene(scene);
 
 
@@ -82,8 +108,23 @@ public class VuePrincipale extends Application {
 
     }
 
-    public ImageView afficherImage(String nomImage) {
-        Image image = new Image(this.getClass().getResourceAsStream(nomImage));
+    public ImageView afficherImage(String nomImage) throws IOException {
+
+        File dossier = new File("/ressources.tp1" + nomImage);
+        dossier.listFiles();
+
+        Image image = new Image(dossier.toURL().openStream());
+        ImageView imageView = new ImageView(image);
+
+        return imageView;
+    }
+
+    public ImageView afficherImageTravail(String nomImage) throws IOException {
+
+        File dossier = new File("./travail/images" + nomImage);
+        dossier.listFiles();
+
+        Image image = new Image(dossier.toURL().openStream());
         ImageView imageView = new ImageView(image);
 
         return imageView;
