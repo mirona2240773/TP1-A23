@@ -1,6 +1,7 @@
-package main.java.tp1;
+package tp1;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -14,7 +15,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 /**
  * Vue pour le Tp1 sur les équations
@@ -57,50 +57,58 @@ public class VuePrincipale extends Application {
 
     private Button bouttonEffacerlesGraphiques = new Button("Effacer les graphiques");
 
+    private GridPane gridPane = new GridPane();
 
-
-
-
+    private Label auteur = new Label("Nom");
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        TilePane tilePane = new TilePane(afficherImage("science1.png"));
+        TilePane tilePane = new TilePane();
+        tilePane.setStyle("-fx-background-color: #" + "FFA500");
+        tilePane.setPrefSize(300,370);
 
-        GridPane gridPane = new GridPane();
-        gridPane.add(afficherImage("science1.png"),0,0);
-        gridPane.add(afficherImage("science2.png"),1,0,1,2);
-        gridPane.add(afficherImage("science3.png"),0,1);
-        gridPane.add(afficherImage("science4.png"),0,2,1,2);
-        gridPane.add(afficherImage("science5.png"),1,2);
-        gridPane.add(afficherImage("science5.png"),1,3);
+    //todo fair les méthode pour chaque Pane
+        setGridScene();
 
 
 
-//        StackPane stackPane = new StackPane();
-//
-//        HBox hBox = new HBox(label, textField, choiceBox);
-//        HBox hBox1 = new HBox(bouttonAjouterGraphique, bouttonEffacerlesGraphiques);
-//        VBox vBox = new VBox(hBox, hBox1);
-//
-//
-//
-//        VBox vBox1 = new VBox(tilePane, vBox);
-//        AnchorPane anchorPane = new AnchorPane(vBox1);
-//        AnchorPane.setTopAnchor(anchorPane,200.0);
-//
-//        HBox hBox3 = new HBox(afficherImageTravail("eq1.png"));
-//        HBox hBox4 = new HBox(button1, button2, button3);
-//
-//
-//        BorderPane borderPane = new BorderPane();;
-//        borderPane.setTop(hBox3);
-//        borderPane.setLeft(gridPane);
-//        borderPane.setRight(anchorPane);
-//        borderPane.setBottom(hBox4);
+        StackPane stackPane = new StackPane(auteur);
+        // VARAIBLE CONNARD
+
+
+        HBox hBox = new HBox(label, textField, choiceBox);
+        hBox.setSpacing(25);
+       
+        HBox hBox1 = new HBox(bouttonAjouterGraphique, bouttonEffacerlesGraphiques);
+        hBox1.setPadding(new Insets(10,25,10,25));
+        VBox vBox = new VBox(hBox, hBox1);
+
+
+        VBox vBox1 = new VBox(tilePane,stackPane, vBox);
+        AnchorPane anchorPane = new AnchorPane(vBox1);
+
+
+
+        HBox hBox3 = new HBox();
+        for (int i = 1; i <= 10; i++) {
+            hBox3.getChildren().add(afficherImageTravail("eq" + String.valueOf(i) + ".png"));
+        }
+        hBox3.setMinWidth(LARGEUR_MIN_SECTION_HAUT);
+
+
+        HBox hBox4 = new HBox(button1, button2, button3);
+        hBox4.setSpacing(ESPACE_ENTRE_BOUTONS_BAS);
+
+        BorderPane borderPane = new BorderPane();
+
+        borderPane.setTop(hBox3);
+        borderPane.setLeft(gridPane);
+        borderPane.setCenter(anchorPane);
+        borderPane.setBottom(hBox4);
 
 
 //        afficherImage("science.png");
-        Scene scene = new Scene(tilePane,500,400);
+        Scene scene = new Scene(borderPane, LARGEUR_SCENE, HATEUR_SCENE);
         primaryStage.setScene(scene);
 
 
@@ -108,24 +116,43 @@ public class VuePrincipale extends Application {
 
     }
 
+    private void setGridScene() throws IOException {
+
+        gridPane.add(afficherImage("science1.png"), 0, 0, 1, 1);
+        gridPane.add(afficherImage("science2.png"), 1, 0, 1, 2);
+        gridPane.add(afficherImage("science3.png"), 0, 1, 1, 1);
+        gridPane.add(afficherImage("science4.png"), 0, 2, 1, 2);
+        gridPane.add(afficherImage("science5.png"), 1, 2, 1, 1);
+        gridPane.add(afficherImage("science5.png"), 1, 3, 1, 1);
+        gridPane.setMaxSize(200,150);
+
+
+    }
+
     public ImageView afficherImage(String nomImage) throws IOException {
 
-        File dossier = new File("/ressources.tp1" + nomImage);
-        dossier.listFiles();
-
-        Image image = new Image(dossier.toURL().openStream());
+        Image image = new Image(this.getClass().getResourceAsStream(nomImage));
         ImageView imageView = new ImageView(image);
+
+        imageView.setFitHeight(IMAGE_GAUCHE_TAILLE_SIMPLE);
+        imageView.setFitWidth(IMAGE_GAUCHE_TAILLE_SIMPLE);
 
         return imageView;
     }
 
     public ImageView afficherImageTravail(String nomImage) throws IOException {
 
-        File dossier = new File("./travail/images" + nomImage);
+        File dossier = new File("./travail/images/" + nomImage);
         dossier.listFiles();
+
 
         Image image = new Image(dossier.toURL().openStream());
         ImageView imageView = new ImageView(image);
+
+
+        imageView.setFitHeight(TOP_IMAGE_HAUTEUR);
+        imageView.setFitWidth(TOP_IMAGE_LARGEUR);
+
 
         return imageView;
     }
