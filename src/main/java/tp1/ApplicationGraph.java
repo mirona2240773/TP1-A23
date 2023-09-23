@@ -14,7 +14,10 @@ public class ApplicationGraph extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setScene(VuePrincipale.getScene());
+		primaryStage.setMinWidth(450);
+        primaryStage.setMinHeight(500);
+        primaryStage.setMaxWidth(1200);
+        primaryStage.setScene(VuePrincipale.getScene());
 		primaryStage.show();
 	}
 }
