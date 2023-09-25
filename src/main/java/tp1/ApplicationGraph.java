@@ -2,6 +2,9 @@ package tp1;
 
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.mariuszgromada.math.mxparser.License;
 

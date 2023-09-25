@@ -1,13 +1,12 @@
 package tp1;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -29,8 +28,10 @@ import java.io.IOException;
 
 public class VuePrincipale extends Application {
 
+
     private final static Border BORDER = new Border(
             new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null, null));
+
     public static final int LARGEUR_SCENE = 600;
     public static final int HATEUR_SCENE = 500;
     public static final int TOP_IMAGE_HAUTEUR = 40;
@@ -44,50 +45,102 @@ public class VuePrincipale extends Application {
     public static final int ESPACE_ENTRE_IMAGE_HAUT = 10;
     public static final double LARGEUR_MIN_SECTION_HAUT = 200.0;
 
-
+    /**
+     * Crée le boutton 1
+     */
     private Button button1 = new Button("Boutton 1");
+    /**
+     * Crée le boutton 2
+     */
     private Button button2 = new Button("Boutton 2");
+    /**
+     * Crée le boutton 3
+     */
     private Button button3 = new Button("Boutton 3");
 
-    private Label label = new Label("Nombre de données");
-
-    private TextField textField = new TextField();
-
-    private ChoiceBox<TypeEquation> choiceBox = new ChoiceBox();
-
+    /**
+     * Crée le label Nombre de données
+     */
+    private Label labelNbDonner = new Label("Nombre de données");
+    /**
+     * Crée le textfield pour la saisie de nombre de points
+     */
+    private TextField textFieldNbPoints = new TextField();
+    /**
+     * Crée la boite de choix de graphique
+     */
+    private ChoiceBox<TypeEquation> choiceBoxGraphique = new ChoiceBox();
+    /**
+     * Crée le boutton AjouterGrahpique
+     */
     private Button bouttonAjouterGraphique = new Button("Ajouter un graphique");
 
-    private Button bouttonEffacerlesGraphiques = new Button("Effacer les graphiques");
+    /**
+     * Crée le boutton effacerGraphique
+     */
+    private Button bouttonEffacerLesGraphiques = new Button("Effacer les graphiques");
 
+    /**
+     * Crée le GridPane
+     */
     private GridPane gridPane = new GridPane();
 
+    /**
+     * Crée le label des noms des auteurs
+     */
     private Label auteur = new Label("Alexis miron et Gabriel lebel");
 
+    /**
+     * Crée le tilePane
+     */
     private TilePane tilePane = new TilePane();
 
-
+    /**
+     * Crée une Hbox Nombre de donner
+     */
     private HBox hBoxNbDonner = new HBox();
-
+    /**
+     * Crée une Hbox Ajouter Effacer
+     */
     private HBox hBoxAjouterEffacer = new HBox();
 
+    /**
+     * Crée une Hbox boutton
+     */
     private HBox hBoxBoutton = new HBox();
 
+    /**
+     * Crée une Hbox Formule
+     */
     private HBox hBoxFormule = new HBox();
 
+    /**
+     * Crée un AnchorPane OptionGraphique
+     */
     private AnchorPane anchorPaneOptionGraphique = new AnchorPane();
-
+    /**
+     * Crée une Vbox OptionGraphique
+     */
     private VBox vBoxOptionGraphique = new VBox();
-
+    /**
+     * Crée une Vbox GridPane
+     */
     private VBox vBoxGrid = new VBox();
 
+    /**
+     * Crée un StackPane
+     */
     private StackPane stackPane = new StackPane();
 
+    /**
+     * Crée une Vbox Graphique
+     */
     private VBox vBoxGrapique = new VBox();
 
+    /**
+     * Crée une BorderPane
+     */
     private BorderPane borderPane = new BorderPane();
-
-//     private static Scene scene = creationScene();
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -102,6 +155,8 @@ public class VuePrincipale extends Application {
         setStackPane();
         setvBoxGrapique();
         setBorderPane();
+        associeDialogAuxBoutons(button1, button2, button3);
+
 
         Scene scene = new Scene(borderPane, 1200, HATEUR_SCENE);
 
@@ -113,13 +168,19 @@ public class VuePrincipale extends Application {
 
     }
 
+    /**
+     * Crée la scene avec la méthode creationScene et la renvoie
+     * @return Scene d'une BorderPane, Sa largeur, Sa hauteur
+     */
     public static Scene getScene() throws IOException {
         VuePrincipale vuePrincipale = new VuePrincipale();
         vuePrincipale.creationScene();
 
         return new Scene(vuePrincipale.borderPane, LARGEUR_SCENE, HATEUR_SCENE);
     }
-
+    /**
+     * Crée la scène
+     */
     private void creationScene() throws IOException {
         setGridScene();
         sethBoxNbDonner();
@@ -132,8 +193,14 @@ public class VuePrincipale extends Application {
         setStackPane();
         setvBoxGrapique();
         setBorderPane();
-    }
+        associeDialogAuxBoutons(button1, button2, button3);
+        associeAjouterGrapgiqueAuxBoutons(bouttonAjouterGraphique);
+        associeEffacerGrapgiqueAuxBoutons(bouttonEffacerLesGraphiques);
 
+    }
+    /**
+     * Crée la BorderPane avec hboxFormule au dessus, vBoxGrid a gauche, vBoxGraphique a droite et hboxBoutton en bas
+     */
     private void setBorderPane() {
         borderPane.setTop(hBoxFormule);
         borderPane.setLeft(vBoxGrid);
@@ -141,11 +208,17 @@ public class VuePrincipale extends Application {
         borderPane.setBottom(hBoxBoutton);
     }
 
+    /**
+     * Crée une Vbox contenant stackPane et AnchorPaneOptionGraphique
+     */
     private void setvBoxGrapique() {
         vBoxGrapique = new VBox(stackPane, anchorPaneOptionGraphique);
         vBoxGrapique.setPrefSize(300, 375);
         vBoxGrapique.setMinWidth(300);
     }
+    /**
+     * Crée la StacPane avec tilePane en dessous et auteur par dessous et dans le coin en bas a gauche
+     */
 
     private void setStackPane() {
         stackPane = new StackPane(tilePane, auteur);
@@ -156,7 +229,10 @@ public class VuePrincipale extends Application {
         StackPane.setMargin(stackPane.getChildren().get(1), new Insets(0, 0, 70, 0));
 
     }
-
+    /**
+     * Crée la AnchorPane avec vBoxOptionGraphique
+     * Définie la couleur de la bordure du AnchorePane
+     */
     private void setAnchorPane() throws IOException {
         anchorPaneOptionGraphique = new AnchorPane(vBoxOptionGraphique);
         AnchorPane.setTopAnchor(vBoxOptionGraphique, 10.0);
@@ -168,11 +244,15 @@ public class VuePrincipale extends Application {
                 "-fx-border-insets: 5;\n" +
                 "-fx-border-width: 2;\n");
     }
-
+    /**
+     * Crée une Vbox contenant la hboxNbDonner et hboxAjouterEffacer
+     */
     private void setvBoxOptionGraphique() throws IOException {
         vBoxOptionGraphique = new VBox(hBoxNbDonner, hBoxAjouterEffacer);
     }
-
+    /**
+     * Crée une Hbox qui ajoute toute les images contenant des Formules
+     */
     private void sethBoxFormule() throws IOException {
         for (int i = 1; i <= 10; i++) {
             hBoxFormule.getChildren().add(afficherImageTravail("eq" + String.valueOf(i) + ".png"));
@@ -180,7 +260,9 @@ public class VuePrincipale extends Application {
         hBoxFormule.setMinWidth(LARGEUR_MIN_SECTION_HAUT);
         hBoxFormule.setSpacing(ESPACE_ENTRE_IMAGE_HAUT);
     }
-
+    /**
+     * Crée une Hbox contenant les boutton 1,2 et 3
+     */
     private void sethBoxBoutton123() throws IOException {
         button1.setMinWidth(80);
 
@@ -198,37 +280,48 @@ public class VuePrincipale extends Application {
         HBox.setHgrow(hBoxBoutton.getChildren().get(2), Priority.SOMETIMES);
     }
 
+    /**
+     * Crée une Hbox contenant le labelNbDonner, le textFieldNbPoints et le choiceBox
+     * Ajoute les graphiques LINEAR,QUADRATIC,SINUS et INVERSE_X dans la choiceBox
+     */
     private void sethBoxNbDonner() throws IOException {
-        label.setMinWidth(LARGEUR_MIN_ETIQUETTE_DONNEES);
+        labelNbDonner.setMinWidth(LARGEUR_MIN_ETIQUETTE_DONNEES);
 
-        textField.setMinWidth(LARGEUR_MIN_TEXTFIELD_DONNEES);
+        textFieldNbPoints.setMinWidth(LARGEUR_MIN_TEXTFIELD_DONNEES);
 
-        textField.setMaxWidth(40);
+        textFieldNbPoints.setMaxWidth(40);
 
-        choiceBox.setMinWidth(100);
-        choiceBox.getItems().addAll(TypeEquation.LINEAR, TypeEquation.QUADRATIC, TypeEquation.SINUS, TypeEquation.INVERSE_X);
+        choiceBoxGraphique.setMinWidth(100);
+        choiceBoxGraphique.getItems().addAll(TypeEquation.LINEAR, TypeEquation.QUADRATIC, TypeEquation.SINUS, TypeEquation.INVERSE_X);
 
-        hBoxNbDonner = new HBox(label, textField, choiceBox);
+        hBoxNbDonner = new HBox(labelNbDonner, textFieldNbPoints, choiceBoxGraphique);
         hBoxNbDonner.setSpacing(25);
         hBoxNbDonner.setAlignment(Pos.TOP_CENTER);
     }
-
+    /**
+     * Crée une Hbox contenant les boutton AjouterGraphique et EffacerLesGraphiques
+     */
     private void sethBoxAjouterEffacer() throws IOException {
         bouttonAjouterGraphique.setMinWidth(100);
-        bouttonEffacerlesGraphiques.setMinWidth(100);
-        hBoxAjouterEffacer = new HBox(bouttonAjouterGraphique, bouttonEffacerlesGraphiques);
+        bouttonEffacerLesGraphiques.setMinWidth(100);
+        hBoxAjouterEffacer = new HBox(bouttonAjouterGraphique, bouttonEffacerLesGraphiques);
         hBoxAjouterEffacer.setPadding(new Insets(10, 25, 10, 25));
         hBoxAjouterEffacer.setSpacing(25);
 
         hBoxAjouterEffacer.setAlignment(Pos.BOTTOM_CENTER);
     }
 
+    /**
+     * Crée le tilePane qui contiendra les graphiques de bouttonAjouterGraphique
+     */
     private void setTilePane() throws IOException {
         tilePane.setStyle("-fx-background-color: #" + "FFA500");
         tilePane.setPrefSize(3000, 3700);
         tilePane.setVgap(ESPACE_VERTICAL_ENTRE_DONNEES_DU_GRAPHIQUE);
     }
-
+    /**
+     * Crée un GridPane contenant les images sciences obtenue par afficherImage
+     */
     private void setGridScene() throws IOException {
         gridPane.add(afficherImage("science1.png"), 0, 0);
         gridPane.add(afficherImage("science2.png"), 1, 0, 1, 2);
@@ -242,7 +335,11 @@ public class VuePrincipale extends Application {
         vBoxGrid.setPadding(new Insets(0, 10, 0, 10));
 
     }
-
+    /**
+     * Trouver les images sciences et les renvois avec des grandeurs définis par IMAGE_GAUCHE_TAILLE_SIMPLE
+     * @param nomImage
+     * @return l'image correspant au path envoyer
+     */
     public ImageView afficherImage(String nomImage) throws IOException {
 
         Image image = new Image(this.getClass().getResourceAsStream(nomImage));
@@ -250,11 +347,15 @@ public class VuePrincipale extends Application {
 
         imageView.setFitHeight(IMAGE_GAUCHE_TAILLE_SIMPLE);
         imageView.setFitWidth(IMAGE_GAUCHE_TAILLE_SIMPLE);
-        imageView.fitHeightProperty().setValue(60);
+
 
         return imageView;
     }
-
+    /**
+     * Trouver les images eq et les renvois avec des grandeurs définis par TOP_IMAGE_HAUTEUR
+     * @param nomImage
+     * @return l'image correspond au path
+     */
     public ImageView afficherImageTravail(String nomImage) throws IOException {
 
         File dossier = new File("./travail/images/" + nomImage);
@@ -269,6 +370,68 @@ public class VuePrincipale extends Application {
 
 
         return imageView;
+    }
+
+    /**
+     * Crée une nouvelle classe qui relie les bouttons 1,2,3 au dialogue
+     */
+    public class InnerAction {
+        private String headerText = "Gabriel Lebel et Alrxis miron";
+        EventHandler<ActionEvent> actionEventEventHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                showAlert("Tp1 A23", headerText);
+            }
+        };
+
+        /**
+         * Crée le dialogue lorsque le bouttons est cliquer
+         * @param titre
+         * @param headerText
+         */
+        private void showAlert(String titre, String headerText) {
+            Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+
+            dialog.setTitle(titre);
+            dialog.setHeaderText(headerText);
+            dialog.setContentText("La fonctionalité n'est pas en service");
+            dialog.show();
+
+        }
+    }
+    /**
+     * Associe lorsque le boutton est cliquer a l'action de la classe InnerAction
+     * @param boutons
+     */
+    private void associeDialogAuxBoutons(Button... boutons) {
+        InnerAction innerAction = new InnerAction();
+        for (int i = 0; i < boutons.length; i++) {
+            boutons[i].setOnAction(innerAction.actionEventEventHandler);
+
+        }
+    }
+
+
+    private void associeEffacerGrapgiqueAuxBoutons(Button button) {
+
+        EventHandler<ActionEvent> actionEventEventHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //l'action d'effacer le Graph
+            }
+        };
+        button.setOnAction(actionEventEventHandler);
+    }
+
+    private void associeAjouterGrapgiqueAuxBoutons(Button button) {
+
+        EventHandler<ActionEvent> actionEventEventHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //l'action d'ajoouter le Graph
+            }
+        };
+        button.setOnAction(actionEventEventHandler);
     }
 
     public static void main(String[] args) {
