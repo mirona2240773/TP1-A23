@@ -157,7 +157,6 @@ public class VuePrincipale extends Application {
         setBorderPane();
         associeDialogAuxBoutons(button1, button2, button3);
 
-
         Scene scene = new Scene(borderPane, 1200, HATEUR_SCENE);
 
         primaryStage.setMinWidth(500);
@@ -240,9 +239,7 @@ public class VuePrincipale extends Application {
         AnchorPane.setLeftAnchor(vBoxOptionGraphique, 0.0);
         AnchorPane.setRightAnchor(vBoxOptionGraphique, 0.0);
         anchorPaneOptionGraphique.setPrefSize(370, 100);
-        anchorPaneOptionGraphique.setStyle("-fx-border-color: blue;\n" +
-                "-fx-border-insets: 5;\n" +
-                "-fx-border-width: 2;\n");
+        anchorPaneOptionGraphique.setBorder(BORDER);
     }
     /**
      * Crée une Vbox contenant la hboxNbDonner et hboxAjouterEffacer
@@ -273,9 +270,7 @@ public class VuePrincipale extends Application {
         button3.setMaxWidth(3000);
         hBoxBoutton = new HBox(button1, button2, button3);
         hBoxBoutton.setSpacing(ESPACE_ENTRE_BOUTONS_BAS);
-        hBoxBoutton.setStyle("-fx-border-color: blue;\n" +
-                "-fx-border-insets: 5;\n" +
-                "-fx-border-width: 1;\n");
+        hBoxBoutton.setBorder(BORDER);
         HBox.setHgrow(hBoxBoutton.getChildren().get(1), Priority.ALWAYS);
         HBox.setHgrow(hBoxBoutton.getChildren().get(2), Priority.SOMETIMES);
     }
@@ -411,24 +406,32 @@ public class VuePrincipale extends Application {
         }
     }
 
-
+    /**
+     * Associe lorsque le boutton est cliquer a un évenement qui supprime tout les graphiques
+     * @param button
+     */
     private void associeEffacerGrapgiqueAuxBoutons(Button button) {
 
         EventHandler<ActionEvent> actionEventEventHandler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //l'action d'effacer le Graph
+                tilePane.getChildren().removeAll();
             }
         };
         button.setOnAction(actionEventEventHandler);
     }
-
+    /**
+     * Associe lorsque le boutton est cliquer a un évenement
+     * qui Ajoute un graphique selon le nombre de points et type de graphique demandé
+     * @param button
+     */
     private void associeAjouterGrapgiqueAuxBoutons(Button button) {
-
+        ActionGenerer actionGenerer = new ActionGenerer(tilePane,
+                choiceBoxGraphique,textFieldNbPoints);
         EventHandler<ActionEvent> actionEventEventHandler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //l'action d'ajoouter le Graph
+                actionGenerer.faire();
             }
         };
         button.setOnAction(actionEventEventHandler);
