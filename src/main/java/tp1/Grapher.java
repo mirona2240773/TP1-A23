@@ -8,7 +8,13 @@ import org.mariuszgromada.math.mxparser.Function;
 import java.util.ArrayList;
 
 
+
+
 public class Grapher {
+
+    public static final int LARGEUR_GRAPHIQUE = 50;
+
+    public static final int HAUTEUR_GRAPHIQUE = 50;
 
     public XYChart.Series<Number, Number> createSeries(Parameters params) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
@@ -20,7 +26,7 @@ public class Grapher {
     public LineChart<Number, Number> creerLineChart(Parameters params) {
         LineChart<Number, Number> lineChart = new LineChart<>(new NumberAxis(), new NumberAxis());
         lineChart.getData().addAll(createSeries(params));
-
+        lineChart.setPrefSize(LARGEUR_GRAPHIQUE,HAUTEUR_GRAPHIQUE);
         return lineChart;
     }
 

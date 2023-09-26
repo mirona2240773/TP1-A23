@@ -205,9 +205,8 @@ public class VuePrincipale extends Application {
 
         auteur.setRotate(90);
         auteur.setTranslateX(70);
+        auteur.setTranslateY(-70);
         stackPane.setAlignment(auteur, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(stackPane.getChildren().get(1), new Insets(0, 0, 70, 0));
-
     }
     /**
      * Crée la AnchorPane avec vBoxOptionGraphique
@@ -294,9 +293,6 @@ public class VuePrincipale extends Application {
         tilePane.setStyle("-fx-background-color: #" + "FFA500");
         tilePane.setPrefSize(3000, 3700);
         tilePane.setVgap(ESPACE_VERTICAL_ENTRE_DONNEES_DU_GRAPHIQUE);
-//        tilePane.setPrefTileWidth(50);
-//        tilePane.setPrefTileHeight(50);
-//        tilePane.setTileAlignment(Pos.CENTER);
 
     }
     /**
@@ -318,7 +314,7 @@ public class VuePrincipale extends Application {
     }
     /**
      * Trouver les images sciences et les renvois avec des grandeurs définis par IMAGE_GAUCHE_TAILLE_SIMPLE
-     * @param nomImage
+     * @param nomImage nom dl'image à trouver
      * @return l'image correspant au path envoyer
      */
     public ImageView afficherImage(String nomImage) throws IOException {
@@ -333,7 +329,7 @@ public class VuePrincipale extends Application {
     }
     /**
      * Trouver les images eq et les renvois avec des grandeurs définis par TOP_IMAGE_HAUTEUR
-     * @param nomImage
+     * @param nomImage nom dl'image à trouver
      * @return l'image correspond au path
      */
     public ImageView afficherImageTravail(String nomImage) throws IOException {
@@ -355,7 +351,7 @@ public class VuePrincipale extends Application {
 
     /**
      * Associe lorsque le boutton est cliquer a l'action d'ouvrir le dialogue
-     * @param boutons
+     * @param boutons 1,2 et 3
      */
     private void associeDialogAuxBoutons(Button... boutons) {
         EventHandler<ActionEvent>actionEventEventHandler = new EventHandler<ActionEvent>() {
@@ -377,7 +373,7 @@ public class VuePrincipale extends Application {
 
     /**
      * Associe lorsque le boutton est cliquer a un évenement qui supprime tout les graphiques
-     * @param button
+     * @param button EffacerGraphique
      */
     private void associeEffacerGrapgiqueAuxBoutons(Button button) {
 
@@ -392,7 +388,7 @@ public class VuePrincipale extends Application {
     /**
      * Associe lorsque le boutton est cliquer a un évenement
      * qui Ajoute un graphique selon le nombre de points et type de graphique demandé
-     * @param button
+     * @param button AjouterGraphique
      */
     private void associeAjouterGrapgiqueAuxBoutons(Button button) {
         ActionGenerer actionGenerer = new ActionGenerer(tilePane,
