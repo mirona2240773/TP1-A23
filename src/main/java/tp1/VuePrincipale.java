@@ -3,8 +3,11 @@ package tp1;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -310,6 +313,23 @@ public class VuePrincipale extends Application {
         vBoxGrid = new VBox(gridPane);
         vBoxGrid.setAlignment(Pos.CENTER);
         vBoxGrid.setPadding(new Insets(0, 10, 0, 10));
+
+        gridPane.setGridLinesVisible(true);
+
+        gridPane.getChildren().forEach((child) -> {
+            GridPane.setFillHeight(child, true);
+            GridPane.setVgrow(child, Priority.ALWAYS);
+            if (child.getClass() == ImageView.class) {
+                ((ImageView) child).setPreserveRatio(false);
+            }
+
+        });
+
+        GridPane.setFillHeight(gridPane.getChildren().get(1), Boolean.TRUE);
+        GridPane.setFillWidth(gridPane.getChildren().get(1), Boolean.TRUE);
+        GridPane.setVgrow(gridPane.getChildren().get(1), Priority.ALWAYS);
+//        ((ImageView) gridPane.getChildren().get(1)).setFitHeight(Double.MAX_VALUE);
+//        gridPane.getChildren().get(1);
 
     }
     /**

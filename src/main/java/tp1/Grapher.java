@@ -16,7 +16,7 @@ public class Grapher {
 
     public static final int HAUTEUR_GRAPHIQUE = 50;
 
-    public XYChart.Series<Number, Number> createSeries(Parameters params) {
+    public static XYChart.Series<Number, Number> createSeries(Parameters params) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.getData().addAll(getData(params));
 
@@ -30,7 +30,7 @@ public class Grapher {
         return lineChart;
     }
 
-    private void instancierAxes(NumberAxis xAxis, NumberAxis yAxis, int nombrePoints) {
+    private void instancierAxes(NumberAxis xAxis, NumberAxis yAxis, int nombrePoints) { //obsolete
         xAxis.setLabel("x");
         xAxis.setAutoRanging(false);
         xAxis.setLowerBound(0);
@@ -41,18 +41,21 @@ public class Grapher {
         yAxis.setMinorTickCount(0);
     }
 
-    private ArrayList<XYChart.Data<Number, Number>> getData(Parameters params) {
+    private static ArrayList<XYChart.Data<Number, Number>> getData(Parameters params) {
         ArrayList<XYChart.Data<Number, Number>> data = new ArrayList<>();
         Function fx = getFunction(params);
+        double result;
 
         for (int i = 0; i < params.nombrePoints; i++) {
-            data.add(new XYChart.Data<>(i, fx.calculate(i)));
+            result = fx.calculate(i);
+            if (!Double.isNaN(result))
+                data.add(new XYChart.Data<>(i, result));
         }
 
         return data;
     }
 
-    private Function getFunction(Parameters params) {
+    private static Function getFunction(Parameters params) {
         switch (params.typeEquation) {
             case SINUS -> {
                 return new Function("f(x)=sin(x)");
