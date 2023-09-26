@@ -192,6 +192,7 @@ public class VuePrincipale extends Application {
         setStackPane();
         setvBoxGrapique();
         setBorderPane();
+
         associeDialogAuxBoutons(button1, button2, button3);
         associeAjouterGrapgiqueAuxBoutons(bouttonAjouterGraphique);
         associeEffacerGrapgiqueAuxBoutons(bouttonEffacerLesGraphiques);
@@ -325,6 +326,7 @@ public class VuePrincipale extends Application {
         gridPane.add(afficherImage("science5.png"), 1, 2);
         gridPane.add(afficherImage("science5.png"), 1, 3);
 
+
         vBoxGrid = new VBox(gridPane);
         vBoxGrid.setAlignment(Pos.CENTER);
         vBoxGrid.setPadding(new Insets(0, 10, 0, 10));
@@ -367,41 +369,25 @@ public class VuePrincipale extends Application {
         return imageView;
     }
 
+
     /**
-     * Crée une nouvelle classe qui relie les bouttons 1,2,3 au dialogue
-     */
-    public class InnerAction {
-        private String headerText = "Gabriel Lebel et Alrxis miron";
-        EventHandler<ActionEvent> actionEventEventHandler = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                showAlert("Tp1 A23", headerText);
-            }
-        };
-
-        /**
-         * Crée le dialogue lorsque le bouttons est cliquer
-         * @param titre
-         * @param headerText
-         */
-        private void showAlert(String titre, String headerText) {
-            Alert dialog = new Alert(Alert.AlertType.INFORMATION);
-
-            dialog.setTitle(titre);
-            dialog.setHeaderText(headerText);
-            dialog.setContentText("La fonctionalité n'est pas en service");
-            dialog.show();
-
-        }
-    }
-    /**
-     * Associe lorsque le boutton est cliquer a l'action de la classe InnerAction
+     * Associe lorsque le boutton est cliquer a l'action d'ouvrir le dialogue
      * @param boutons
      */
     private void associeDialogAuxBoutons(Button... boutons) {
-        InnerAction innerAction = new InnerAction();
+        EventHandler<ActionEvent>actionEventEventHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+
+                dialog.setTitle("tp1");
+                dialog.setHeaderText("Gabriel Lebel et Alexis miron");
+                dialog.setContentText("La fonctionalité n'est pas en service");
+                dialog.show();
+            }
+        };
         for (int i = 0; i < boutons.length; i++) {
-            boutons[i].setOnAction(innerAction.actionEventEventHandler);
+            boutons[i].setOnAction(actionEventEventHandler);
 
         }
     }
