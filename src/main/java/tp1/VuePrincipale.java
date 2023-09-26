@@ -144,26 +144,6 @@ public class VuePrincipale extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        setGridScene();
-        sethBoxNbDonner();
-        sethBoxAjouterEffacer();
-        setvBoxOptionGraphique();
-        setTilePane();
-        setAnchorPane();
-        sethBoxFormule();
-        sethBoxBoutton123();
-        setStackPane();
-        setvBoxGrapique();
-        setBorderPane();
-        associeDialogAuxBoutons(button1, button2, button3);
-
-        Scene scene = new Scene(borderPane, 1200, HATEUR_SCENE);
-
-        primaryStage.setMinWidth(500);
-        primaryStage.setMinHeight(500);
-        primaryStage.setMaxWidth(1200);
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
     }
 
@@ -314,6 +294,10 @@ public class VuePrincipale extends Application {
         tilePane.setStyle("-fx-background-color: #" + "FFA500");
         tilePane.setPrefSize(3000, 3700);
         tilePane.setVgap(ESPACE_VERTICAL_ENTRE_DONNEES_DU_GRAPHIQUE);
+//        tilePane.setPrefTileWidth(50);
+//        tilePane.setPrefTileHeight(50);
+//        tilePane.setTileAlignment(Pos.CENTER);
+
     }
     /**
      * Crée un GridPane contenant les images sciences obtenue par afficherImage
@@ -344,7 +328,6 @@ public class VuePrincipale extends Application {
 
         imageView.setFitHeight(IMAGE_GAUCHE_TAILLE_SIMPLE);
         imageView.setFitWidth(IMAGE_GAUCHE_TAILLE_SIMPLE);
-
 
         return imageView;
     }
@@ -401,7 +384,7 @@ public class VuePrincipale extends Application {
         EventHandler<ActionEvent> actionEventEventHandler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                tilePane.getChildren().removeAll();
+                tilePane.getChildren().removeAll(tilePane.getChildren());
             }
         };
         button.setOnAction(actionEventEventHandler);
@@ -423,7 +406,4 @@ public class VuePrincipale extends Application {
         button.setOnAction(actionEventEventHandler);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
