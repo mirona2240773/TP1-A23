@@ -11,24 +11,38 @@ import java.util.ArrayList;
 
 
 public class Grapher {
-
+    /**
+     * Crée une variable finale de la largeur du graphique
+     */
     public static final int LARGEUR_GRAPHIQUE = 50;
-
+    /**
+     * Crée une variable finale de la hauteur du graphique
+     */
     public static final int HAUTEUR_GRAPHIQUE = 50;
 
+    /**
+     * Crée une serie de points
+     * @param params nombre de points
+     */
     public static XYChart.Series<Number, Number> createSeries(Parameters params) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.getData().addAll(getData(params));
 
         return series;
     }
-
+    /**
+     * Crée le graphe selon le nombre de points
+     * @param params nombre de points
+     */
     public LineChart<Number, Number> creerLineChart(Parameters params) {
         LineChart<Number, Number> lineChart = new LineChart<>(new NumberAxis(), new NumberAxis());
         lineChart.getData().addAll(createSeries(params));
         lineChart.setPrefSize(LARGEUR_GRAPHIQUE,HAUTEUR_GRAPHIQUE);
         return lineChart;
     }
+    /**
+     * Crée les axes pour le graphe
+     */
 
     private void instancierAxes(NumberAxis xAxis, NumberAxis yAxis, int nombrePoints) { //obsolete
         xAxis.setLabel("x");
@@ -54,7 +68,10 @@ public class Grapher {
 
         return data;
     }
-
+    /**
+     * Retourne le type de fonction sélectionner
+     * @param params choix de l'utilisateur
+     */
     private static Function getFunction(Parameters params) {
         switch (params.typeEquation) {
             case SINUS -> {
@@ -73,35 +90,63 @@ public class Grapher {
         }
     }
 
-
+    /**
+     * Crée une Classe qui receuille les donners nécessaire au graphique
+     */
     public static class Parameters {
-
+        /**
+         * Crée un variable pour le nombre de points
+         */
         private int nombrePoints;
+        /**
+         * Crée un variable pour le typeEquation
+         */
         private TypeEquation typeEquation;
+        /**
+         * Crée un variable pour le nom
+         */
         private String name;
-
+        /**
+         * Défenie les variables de classes avec les arguments
+         * @param nombrePoints nombre de points sélectionner
+         * @param typeEquation L'équation sélectionner
+         * @param name nom
+         */
         public Parameters(int nombrePoints, TypeEquation typeEquation, String name) {
             this.nombrePoints = nombrePoints;
             this.typeEquation = typeEquation;
             this.name = name;
         }
 
+        /**
+         * Retourne le nombre de points sélectionner
+         * @return nombre de points sélectionner
+         */
         public int getNombrePoints() {
             return nombrePoints;
         }
-
+        /**
+         * Défénie le nombre de points sélectionner
+         */
         public void setNombrePoints(int nombrePoints) {
             this.nombrePoints = nombrePoints;
         }
-
+        /**
+         * Retourne l'équation's sélectionner
+         * @return l'équation sélectionner
+         */
         public TypeEquation getTypeEquation() {
             return typeEquation;
         }
-
+        /**
+         * Définie le nombre de points sélectionner
+         */
         public void setTypeEquation(TypeEquation typeEquation) {
             this.typeEquation = typeEquation;
         }
-
+        /**
+         * Transforme les variables de classes en String lisible
+         */
         @Override
         public String toString() {
             return "Parameters{" +
